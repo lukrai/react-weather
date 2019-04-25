@@ -1,0 +1,50 @@
+{
+  "env": {
+    "browser": false,
+    "node": true
+  },
+  "extends": "tslint-microsoft-contrib",
+  "rules": {
+    "react-a11y-event-has-role": false,
+    "export-name": false,
+    "function-name": false,
+    "import-name": false,
+    "linebreak-style": false,
+    "max-line-length": [
+      true,
+      180
+    ],
+    "missing-jsdoc": false,
+    "no-console": false,
+    "no-function-expression": false,
+    "no-implicit-dependencies": [
+      true,
+      "dev",
+      "optional"
+    ],
+    "no-suspicious-comment": false,
+    "no-unused-expression": false,
+    "prefer-type-cast": false,
+    "quotemark": false,
+    "semicolon": [
+      true,
+      "always",
+      "strict-bound-class-methods"
+    ],
+    "trailing-comma": [
+      true,
+      {
+        "singleline": "never",
+        "multiline": "always"
+      }
+    ],
+    "underscore-consistent-invocation": [
+      true,
+      {
+        "style": "static"
+      }
+    ],
+    "strict-boolean-expressions": [true, "ignore-rhs"]
+  },
+  "rulesDirectory": "node_modules/tslint-microsoft-contrib"
+}
