@@ -36,11 +36,11 @@
       "parameter",
       "arrow-parameter",
       "property-declaration",
-      "variable-declaration",
       "member-variable-declaration",
       "object-destructuring",
       "array-destructuring"
     ],
+    "ter-indent": [true, 4],
     "trailing-comma": [
       true,
       {

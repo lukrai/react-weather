@@ -1,0 +1,85 @@
+$background: #edbbb2;
+$white: #ffffff;
+$black: #1c2431;
+$grey: #939393;
+$orange: #fe5a3f;
+$blue: #5c85ec;
+$purple: #675184;
+$green: #1ca754;
+$yellow: #fedd02;
+
+$padding4: 4px;
+$padding8: 8px;
+$padding12: 12px;
+$padding16: 16px;
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+  overflow: hidden;
+}
+
+body {
+  background: $background;
+  margin: 0;
+  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+  'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  header a {
+    color: $white;
+    text-decoration: none;
+    padding: $padding8;
+    display: block;
+  }
+}
+
+.weather-grid {
+    margin: 0;
+    display: grid;
+    height: 50vh;
+    grid-template-columns: 25% 25% 25% 25%;
+    grid-template-rows: 10% 65% 25%;
+    grid-template-areas:
+            "city city city city"
+            "temp temp info  info"
+            "day day day day ";
+}
+
+.weather-city-title {
+  grid-area: city;
+  background-color: $orange;
+}
+
+.weather-temperature {
+  grid-area: temp;
+  background-color: $yellow;
+}
+
+.weather-info {
+  grid-area: info;
+  background-color: $blue;
+}
+
+.day-grid {
+  grid-area: day;
+  margin: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+}
+
+.weather-day {
+  background-color: #1c2431;
+  border-color: #1ca754;
+  border-style: solid;
+  border-right: 1px;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  monospace;
+}

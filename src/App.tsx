@@ -1,26 +1,42 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.scss';
+import './main.scss';
 
 const App: React.FC = () => {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    return (
+        <div>
+            <header>
+                <a href="#">WeatherApp</a>
+            </header>
+            <main>
+                <h1>Not a Header</h1>
+                <div className="weather-grid">
+                    <div className="weather-city-title">
+                        <p>Kaunas</p>
+                    </div>
+                    <div className="weather-temperature">
+                        <p>Kaunas</p>
+                    </div>
+                    <div className="weather-info">
+                        <p>Kaunas</p>
+                    </div>
+                    <div className="day-grid">
+                        <div className="weather-day">
+                            <p>1</p>
+                        </div>
+                        <div className="weather-day">
+                            <p>2</p>
+                        </div>
+                        <div className="weather-day">
+                            <p>3</p>
+                        </div>
+                        <div className="weather-day">
+                            <p>4</p>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    );
 };
 
 export default App;
