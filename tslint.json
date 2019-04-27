@@ -3,7 +3,7 @@
     "browser": false,
     "node": true
   },
-  "extends": "tslint-microsoft-contrib",
+  "extends": ["tslint-config-airbnb", "tslint-react"],
   "rules": {
     "react-a11y-event-has-role": false,
     "export-name": false,
@@ -16,20 +16,30 @@
     ],
     "missing-jsdoc": false,
     "no-console": false,
+    "no-default-export": false,
     "no-function-expression": false,
     "no-implicit-dependencies": [
-      true,
-      "dev",
-      "optional"
+      true
     ],
+    "no-import-side-effect": false,
+    "no-relative-imports": false,
     "no-suspicious-comment": false,
     "no-unused-expression": false,
     "prefer-type-cast": false,
-    "quotemark": false,
     "semicolon": [
       true,
       "always",
       "strict-bound-class-methods"
+    ],
+    "typedef": [
+      true,
+      "parameter",
+      "arrow-parameter",
+      "property-declaration",
+      "variable-declaration",
+      "member-variable-declaration",
+      "object-destructuring",
+      "array-destructuring"
     ],
     "trailing-comma": [
       true,
@@ -37,14 +47,6 @@
         "singleline": "never",
         "multiline": "always"
       }
-    ],
-    "underscore-consistent-invocation": [
-      true,
-      {
-        "style": "static"
-      }
-    ],
-    "strict-boolean-expressions": [true, "ignore-rhs"]
-  },
-  "rulesDirectory": "node_modules/tslint-microsoft-contrib"
+    ]
+  }
 }
