@@ -2,12 +2,12 @@ import React from 'react';
 import Search from './components/Search';
 import { getWeatherData } from './actions/weather.actions';
 import WeatherGrid from './components/WeatherGrid';
-import {IWeatherDataResponse} from './dto';
+import {IWeatherData, IWeatherDataResponse} from './dto';
 
 interface IProps {}
 
 interface IState {
-    weatherData: IWeatherDataResponse | undefined;
+    weatherData: IWeatherData | undefined;
 }
 
 class App extends React.Component<IProps, IState> {

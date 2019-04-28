@@ -1,22 +1,24 @@
-export interface IWeatherDataResponse {
-    city: {
-        coord: {
-            lat: number;
-            lon: number;
-        };
-        country: string;
-        id: number;
-        name: string;
+interface ICity {
+    coord: {
+        lat: number;
+        lon: number;
     };
+    country: string;
+    id: number;
+    name: string;
+}
+
+export interface IWeatherDataResponse {
+    city: ICity;
     cnt: number;
     cod: string;
-    list: IWeatherDataListItem[];
+    list: IWeatherDataResponseListItem[];
     message: number;
 }
 
-export interface IWeatherDataListItem {
+export interface IWeatherDataResponseListItem {
     clouds: {
-        all: string;
+        all: number;
     };
     dt: number;
     dt_txt: string;
@@ -42,5 +44,24 @@ export interface IWeatherDataListItem {
     wind: {
         deg: number;
         speed: number;
-    }
+    };
+}
+
+export interface IWeatherData {
+    city: ICity;
+    currentWeather: ICurentWeather;
+}
+
+export interface ICurentWeather {
+    temperature: number;
+    humidity: number;
+    pressure: number;
+    description: string;
+    icon: string;
+    id: number;
+    clouds: number;
+    wind: {
+        direction: string;
+        speed: number;
+    };
 }

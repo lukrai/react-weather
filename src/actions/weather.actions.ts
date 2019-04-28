@@ -1,4 +1,5 @@
 import axios from 'axios';
+import {parseResponseWeatherData} from '../helpers/weather.helpers';
 
 const apiKey = "77e577e4c9e13e85b8e39f71194aea31";
 
@@ -13,7 +14,7 @@ export async function getWeatherData(value: Position, cityName?: string) {
     try {
         const response = await axios.get(url);
         console.log(response);
-        return response.data;
+        return parseResponseWeatherData(response.data);
     } catch (error) {
         console.log(error);
     }
