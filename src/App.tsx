@@ -1,13 +1,30 @@
 import React from 'react';
 import Search from './components/Search';
-import {getWeatherData} from "./actions/weather.actions";
+import { getWeatherData } from './actions/weather.actions';
+import WeatherGrid from './components/WeatherGrid';
+import {IWeatherDataResponse} from './dto';
 
-class App extends React.Component {
+interface IProps {}
+
+interface IState {
+    weatherData: IWeatherDataResponse | undefined;
+}
+
+class App extends React.Component<IProps, IState> {
+    constructor(props: any) {
+        super(props);
+
+        this.state = {
+            weatherData: undefined,
+        };
+    }
+
     componentDidMount() {
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(async (position: Position) => {
                 const r = await getWeatherData(position);
-                console.log(r);
+                this.setState({ weatherData: r });
+                console.log(this.state);
             });
         }
     }
@@ -20,31 +37,11 @@ class App extends React.Component {
                 </header>
                 <main>
                     <Search/>
-                    <div className="weather-grid">
-                        <div className="weather-city-title">
-                            <p>Kaunas</p>
-                        </div>
-                        <div className="weather-temperature">
-                            <p>Kaunas</p>
-                        </div>
-                        <div className="weather-info">
-                            <p>Kaunas</p>
-                        </div>
-                        <div className="weather-day-grid">
-                            <div className="weather-day">
-                                <p>1</p>
-                            </div>
-                            <div className="weather-day">
-                                <p>2</p>
-                            </div>
-                            <div className="weather-day">
-                                <p>3</p>
-                            </div>
-                            <div className="weather-day">
-                                <p>4</p>
-                            </div>
-                        </div>
-                    </div>
+                    {
+                        this.state.weatherData &&
+                        <WeatherGrid weatherData={this.state.weatherData}/>
+                    }
+
                 </main>
             </div>
         );

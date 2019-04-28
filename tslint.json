@@ -25,6 +25,7 @@
     "no-relative-imports": false,
     "no-suspicious-comment": false,
     "no-unused-expression": false,
+    "object-curly-spacing": false,
     "prefer-type-cast": false,
     "semicolon": [
       true,
