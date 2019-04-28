@@ -1,3 +1,5 @@
+@import "~weather-icons/css/weather-icons.min.css";
+
 $background: #edbbb2;
 $white: #ffffff;
 $black: #1c2431;
@@ -12,6 +14,14 @@ $padding4: 4px;
 $padding8: 8px;
 $padding12: 12px;
 $padding16: 16px;
+
+$desktop: 768px;
+
+@mixin desktop {
+  @media (min-width: #{$desktop}) {
+    @content;
+  }
+}
 
 html,
 body {
@@ -65,7 +75,7 @@ body {
   background-color: $blue;
 }
 
-.day-grid {
+.weather-day-grid {
   grid-area: day;
   margin: 0;
   display: grid;
@@ -73,13 +83,8 @@ body {
 }
 
 .weather-day {
-  background-color: #1c2431;
+  background-color: $white;
   border-color: #1ca754;
   border-style: solid;
   border-right: 1px;
-}
-
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-  monospace;
 }
