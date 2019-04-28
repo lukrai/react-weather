@@ -58,6 +58,13 @@ body {
             "city city city city"
             "temp temp info  info"
             "day day day day ";
+
+  @include desktop {
+
+    margin-left: auto;
+    margin-right: auto;
+    width: 512px;
+  }
 }
 
 .weather-city-title {
@@ -87,4 +94,45 @@ body {
   border-color: #1ca754;
   border-style: solid;
   border-right: 1px;
+}
+
+.search-form {
+  position: relative;
+  display: inline-flex;
+  width: 100%;
+  padding: $padding8 0 $padding8 0;
+
+  input {
+    border: 1px solid transparent;
+    background-color: $white;
+    color: $black;
+    padding: 10px;
+    font-size: 16px;
+    width: inherit;
+    border-radius: 20px;
+    margin: 0 $padding8 0 $padding8;
+  }
+
+  textarea:focus,
+  input:focus {
+    outline: none;
+  }
+
+  button[type=submit] {
+    border: 1px solid transparent;
+    background-color: $orange;
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    vertical-align: bottom;
+    border-radius: 50%;
+    margin-right: $padding8;
+
+    svg {
+      fill: $black;
+      padding-top: 4px;
+      width: 25px;
+      height: 25px;
+    }
+  }
 }
