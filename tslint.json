@@ -9,6 +9,7 @@
     "export-name": false,
     "function-name": false,
     "import-name": false,
+    "jsx-no-multiline-js": false,
     "linebreak-style": false,
     "max-line-length": [
       true,

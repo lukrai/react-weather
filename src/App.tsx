@@ -3,6 +3,7 @@ import Search from './components/Search';
 import { getWeatherData } from './actions/weather.actions';
 import WeatherGrid from './components/WeatherGrid';
 import {IWeatherData, IWeatherDataResponse} from './dto';
+import Map from './components/Map';
 
 interface IProps {}
 
@@ -37,11 +38,8 @@ class App extends React.Component<IProps, IState> {
                 </header>
                 <main>
                     <Search/>
-                    {
-                        this.state.weatherData &&
-                        <WeatherGrid weatherData={this.state.weatherData}/>
-                    }
-
+                    {this.state.weatherData && <WeatherGrid weatherData={this.state.weatherData}/>}
+                    <Map weatherData={this.state.weatherData}/>
                 </main>
             </div>
         );
