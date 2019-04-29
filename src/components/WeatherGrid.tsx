@@ -1,5 +1,5 @@
 import React from 'react';
-import {ICurentWeather, IWeatherData} from '../dto';
+import {ICurentWeather, IForecast, IWeatherData} from '../dto';
 
 interface IPropsWeatherData {
     weatherData: IWeatherData;
@@ -14,20 +14,7 @@ export default function WeatherGrid(props: IPropsWeatherData) {
             </div>
             <WeatherTemperature currentWeather={props.weatherData.currentWeather}/>
             <WeatherInfo currentWeather={props.weatherData.currentWeather}/>
-            <div className="weather-day-grid">
-                <div className="weather-day">
-                    <p>1</p>
-                </div>
-                <div className="weather-day">
-                    <p>2</p>
-                </div>
-                <div className="weather-day">
-                    <p>3</p>
-                </div>
-                <div className="weather-day">
-                    <p>4</p>
-                </div>
-            </div>
+            <WeatherForecast forecast={props.weatherData.forecast}/>
         </div>
     );
 }
@@ -48,17 +35,36 @@ function WeatherInfo(props: { currentWeather: ICurentWeather }) {
     return (
         <div className="weather-info">
             <div>
-                <i title="Humidity" className="wi wi-humidity"> {props.currentWeather.humidity}%</i>
+                <i title="Humidity" className="wi wi-humidity"><span> {props.currentWeather.humidity}%</span></i>
             </div>
             <div>
-                <i title="Pressure" className="wi wi-barometer"> {props.currentWeather.pressure} Mbar</i>
+                <i title="Pressure" className="wi wi-barometer"><span> {props.currentWeather.pressure} Mbar</span></i>
             </div>
             <div>
-                <i title="Cloudiness" className="wi wi-cloud"> {props.currentWeather.clouds} %</i>
+                <i title="Cloudiness" className="wi wi-cloud"><span> {props.currentWeather.clouds} %</span></i>
             </div>
             <div>
-                <i title="Wind direction" className={`wi wi-direction-${props.currentWeather.wind.direction}`}> {props.currentWeather.wind.speed} m/s</i>
+                <i title="Wind direction" className={`wi wi-direction-${props.currentWeather.wind.direction}`}><span> {props.currentWeather.wind.speed} m/s</span></i>
             </div>
+        </div>
+    );
+}
+
+function WeatherForecast(props: { forecast: IForecast[] }) {
+    return (
+        <div className="weather-forecast-grid">
+            <div id="border-top"></div>
+            {props.forecast.map((o, i) => {
+                return (
+                    <div key={i} className="weather-forecast-item">
+                        <p id="date">{o.month + 1}.{o.date}</p>
+                        <i className="wi wi-cloud"></i>
+                        <p id="temperature">{o.tempMin}..{o.tempMax}°C</p>
+                    </div>
+                );
+            })}
+
+            <div id="border-bottom"></div>
         </div>
     );
 }

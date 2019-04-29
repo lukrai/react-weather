@@ -115,7 +115,7 @@ function getForecast(convertedWeatherData: IWeatherDataConverted[]) {
             icon: mostFrequentIcon,
         };
     });
-    return forecast;
+    return forecast.slice(0, 4);
 }
 
 function convertWindDirection(deg: number) {

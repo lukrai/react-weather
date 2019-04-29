@@ -69,8 +69,6 @@ body {
 
 .weather-city-title {
   grid-area: city;
-  //border-bottom: 1px solid $white;
-  //width: 95%;
 
   :after {
     content: "";
@@ -95,9 +93,8 @@ body {
     position: absolute;
     top: 16px;
     right: 0;
-    bottom: 16px;
-    margin: 0;
-    height: 100%;
+    bottom: 0;
+    margin-bottom: 16px;
     border-right: 1px solid $white;
   }
 
@@ -128,35 +125,90 @@ body {
 
 .weather-info {
   grid-area: info;
-  //text-align: center;
   padding-top: 24px;
   display: grid;
   grid-template-rows: repeat(auto-fit, minmax(30px,1fr));
 
   i {
     margin: 8px;
-    padding-left: $padding16;
+    padding-left: $padding8;
     display: inline-block;
     width: 100%;
     text-align: left;
     font-size: 24px;
     color: $black;
+
+    span {
+      font-family: "Roboto Medium";
+    }
   }
+
 }
 
-
-.weather-day-grid {
+.weather-forecast-grid {
   grid-area: day;
   margin: 0;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
+  position: relative;
+
+  #border-top {
+    border-top: 1px solid $white;
+    position: absolute;
+    left:8px;
+    right: 8px;
+  }
+
+  #border-bottom {
+    border-bottom: 1px solid $white;
+    position: absolute;
+    left:8px;
+    right: 8px;
+    bottom: 0;
+    margin-bottom: -32px;
+  }
 }
 
-.weather-day {
-  background-color: $white;
-  border-color: #1ca754;
-  border-style: solid;
-  border-right: 1px;
+.weather-forecast-item {
+  position: relative;
+
+  #date {
+    text-align: left;
+  }
+  #temperature {
+    text-align: right;
+  }
+
+  p {
+    font-family: "Roboto Medium";
+    margin: $padding8;
+    font-size: 20px;
+  }
+
+  i {
+    display: inline-block;
+    width: 100%;
+    text-align:center;
+    font-size: 36px;
+    color: $black;
+  }
+
+  :after {
+    content: '';
+    position: absolute;
+    top: 8px;
+    right: 0;
+    bottom: 0;
+    border-right: 1px solid $white;
+  }
+}
+
+.weather-forecast-item:nth-child(5) {
+  border: 0;
+
+  :after {
+    border: 0;
+  }
 }
 
 .search-form {
