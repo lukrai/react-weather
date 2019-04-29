@@ -259,12 +259,18 @@ body {
   }
 }
 
+.pac-logo:after {
+  display: none;
+}
+
+.pac-container:after {
+  display: none;
+}
+
 .map-container-element {
   height: 300px;
   width: 100%;
   margin-top: 40px;
-  //display: inline-block;
-  //text-align:center;
   margin-left: auto;
   margin-right: auto;
 

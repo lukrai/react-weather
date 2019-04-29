@@ -104,9 +104,7 @@ function getForecast(convertedWeatherData: IWeatherDataConverted[]) {
     const forecast = groupByDate.map(items => {
         const {tempMin, tempMax} = getMinMaxTemp(items.map(o => o.temperature));
         const mostFrequentIcon = findMostFrequent(items.map(o => o.icon));
-        console.log("before", mostFrequentIcon);
         mostFrequentIcon.replace('n', 'd'); // convert night icons to day icons for forecast
-        console.log("after", mostFrequentIcon);
         return  {
             tempMin,
             tempMax,
