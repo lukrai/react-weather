@@ -23,7 +23,7 @@ function WeatherTemperature(props: { currentWeather: ICurentWeather }) {
     return (
         <div className="weather-temperature">
             <p>{props.currentWeather.temperature}°</p>
-            <i className="wi wi-day-cloudy"/>
+            <i className={`wi ${props.currentWeather.icon}`}/>
             <div className="weather-description">
                 {props.currentWeather.description}
             </div>
@@ -53,18 +53,17 @@ function WeatherInfo(props: { currentWeather: ICurentWeather }) {
 function WeatherForecast(props: { forecast: IForecast[] }) {
     return (
         <div className="weather-forecast-grid">
-            <div id="border-top"></div>
+            <div id="border-top"/>
             {props.forecast.map((o, i) => {
                 return (
                     <div key={i} className="weather-forecast-item">
                         <p id="date">{o.month + 1}.{o.date}</p>
-                        <i className="wi wi-cloud"></i>
+                        <i className={`wi ${o.icon}`}/>
                         <p id="temperature">{o.tempMin}..{o.tempMax}°C</p>
                     </div>
                 );
             })}
-
-            <div id="border-bottom"></div>
+            <div id="border-bottom"/>
         </div>
     );
 }

@@ -48,7 +48,7 @@ export function parseResponseWeatherData(weatherDataResponse: IWeatherDataRespon
         humidity: weatherDataResponse.list[0].main.humidity,
         pressure: weatherDataResponse.list[0].main.pressure,
         description: weatherDataResponse.list[0].weather[0].description,
-        icon: weatherDataResponse.list[0].weather[0].icon,
+        icon: convertWeatherIcon(weatherDataResponse.list[0].weather[0].icon),
         id: weatherDataResponse.list[0].weather[0].id,
         clouds: weatherDataResponse.list[0].clouds.all,
         wind: {
@@ -88,23 +88,25 @@ function getForecast(convertedWeatherData: IWeatherDataConverted[]) {
     const weatherDataNextDays = convertedWeatherData.filter(item => item.dateString !== currentDate);
 
     // get list of next dates
-    const dates: number[] = [];
+    const dates: string[] = [];
     weatherDataNextDays.forEach(item => {
-        if (dates.indexOf(item.date) === -1) {
-            dates.push(item.date);
+        if (dates.indexOf(item.dateString) === -1) {
+            dates.push(item.dateString);
         }
     });
 
     // group 3hour forecasts by date
     const groupByDate: IWeatherDataConverted[][] = [];
     for (let i = 0; i < dates.length; i += 1) {
-        groupByDate.push(weatherDataNextDays.filter(item => item.date === dates[i]));
+        groupByDate.push(weatherDataNextDays.filter(item => item.dateString === dates[i]));
     }
 
     const forecast = groupByDate.map(items => {
         const {tempMin, tempMax} = getMinMaxTemp(items.map(o => o.temperature));
         const mostFrequentIcon = findMostFrequent(items.map(o => o.icon));
-
+        console.log("before", mostFrequentIcon);
+        mostFrequentIcon.replace('n', 'd'); // convert night icons to day icons for forecast
+        console.log("after", mostFrequentIcon);
         return  {
             tempMin,
             tempMax,
@@ -112,7 +114,7 @@ function getForecast(convertedWeatherData: IWeatherDataConverted[]) {
             date: items[0].date,
             month: items[0].month,
             dateString: items[0].dateString,
-            icon: mostFrequentIcon,
+            icon: convertWeatherIcon(mostFrequentIcon),
         };
     });
     return forecast.slice(0, 4);
@@ -157,7 +159,7 @@ function convertDate(date: number) {
 
 function findMostFrequent(items: string[]) {
     if (items.length === 0) {
-        return null;
+        return '';
     }
 
     const modeMap: any = {};
@@ -194,4 +196,43 @@ function getMinMaxTemp(temperatures: number[]) {
     });
 
     return {tempMin, tempMax};
+}
+
+function convertWeatherIcon(icon: string) {
+    // tslint:disable:ter-indent
+    switch (icon) {
+        case '01d':
+            return 'wi-day-sunny';
+        case '01n':
+            return 'wi-night-clear';
+        case '02d':
+            return 'wi-day-cloudy';
+        case '02n':
+            return 'wi-night-alt-cloudy';
+        case '03d':
+        case '03n':
+            return 'wi-cloud';
+        case '04d':
+        case '04n':
+            return 'wi-cloudy';
+        case '09d':
+        case '09n':
+            return 'wi-showers';
+        case '10d':
+            return 'wi-day-rain';
+        case '10n':
+            return 'wi-night-alt-rain';
+        case '11d':
+        case '11n':
+            return 'wi-storm-showers';
+        case '13d':
+        case '13n':
+            return 'wi-snow';
+        case '50d':
+        case '50n':
+            return 'wi-fog';
+        default:
+            return 'wi-day-sunny';
+    }
+    // tslint:enable:ter-indent
 }
