@@ -50,6 +50,7 @@ export interface IWeatherDataResponseListItem {
 export interface IWeatherData {
     city: ICity;
     currentWeather: ICurentWeather;
+    forecast: IForecast[];
 }
 
 export interface ICurentWeather {
@@ -64,4 +65,14 @@ export interface ICurentWeather {
         direction: string;
         speed: number;
     };
+}
+
+export interface IForecast {
+    date: number;
+    dateString: string;
+    day: number;
+    icon: string | null;
+    month: number;
+    tempMax: number;
+    tempMin: number;
 }

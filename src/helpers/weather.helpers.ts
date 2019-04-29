@@ -1,30 +1,121 @@
-import {IWeatherData, IWeatherDataResponse} from '../dto';
+import {IWeatherData, IWeatherDataResponse, IWeatherDataResponseListItem} from '../dto';
 
 export function parseResponseWeatherData(weatherDataResponse: IWeatherDataResponse): IWeatherData | undefined {
     if (weatherDataResponse.list.length <= 0) {
         return undefined;
     }
 
-    // let weatherData;
+    const convertedWeatherData = weatherDataResponse.list.map((o: IWeatherDataResponseListItem) => {
+        const convertedDate = convertDate(o.dt * 1000);
+        return {
+            hour: convertedDate.hour,
+            day: convertedDate.day,
+            date: convertedDate.date,
+            month: convertedDate.month,
+            year: convertedDate.year,
+            dt_txt: o.dt_txt,
+            dateString: o.dt_txt.substring(0, 10),
+            statusID: o.weather[0].id,
+            icon: o.weather[0].icon,
+            description: o.weather[0].description,
+            temperature: Math.round(o.main.temp),
+            tempMin: Math.round(o.main.temp_min),
+            tempMax: Math.round(o.main.temp_max),
+            humidity: Math.round(o.main.humidity),
+            pressure: Math.round(o.main.pressure),
+        };
+    });
+    const currentDate = convertedWeatherData[0].dateString;
+
+    // calculate min and max for today
+    const weatherDataToday = convertedWeatherData.filter(item => item.dateString === currentDate);
+    let todayTempMin = weatherDataToday[0].temperature;
+    let todayTempMax = weatherDataToday[0].temperature;
+
+    weatherDataToday.forEach(item => {
+        if (item.temperature < todayTempMin) {
+            todayTempMin = item.temperature;
+        }
+        if (item.temperature > todayTempMax) {
+            todayTempMax = item.temperature;
+        }
+    });
+
     const currentWeather = {
         temperature: Math.round(weatherDataResponse.list[0].main.temp),
+        tempMin: todayTempMin,
+        tempMax: todayTempMax,
         humidity: weatherDataResponse.list[0].main.humidity,
         pressure: weatherDataResponse.list[0].main.pressure,
         description: weatherDataResponse.list[0].weather[0].description,
         icon: weatherDataResponse.list[0].weather[0].icon,
         id: weatherDataResponse.list[0].weather[0].id,
-        clouds:  weatherDataResponse.list[0].clouds.all,
+        clouds: weatherDataResponse.list[0].clouds.all,
         wind: {
             direction: convertWindDirection(weatherDataResponse.list[0].wind.speed),
             speed: Math.round(weatherDataResponse.list[0].wind.speed),
         },
-
     };
+
+    const forecast = getForecast(convertedWeatherData);
 
     return {
         currentWeather,
+        forecast,
         city: weatherDataResponse.city,
     };
+}
+
+interface IWeatherDataConverted {
+    day: number;
+    date: number;
+    month: number;
+    year: number;
+    dateString: string;
+    statusID: number;
+    description: string;
+    temperature: number;
+    tempMin: number;
+    tempMax: number;
+    humidity: number;
+    pressure: number;
+    icon: string;
+}
+
+function getForecast(convertedWeatherData: IWeatherDataConverted[]) {
+    const currentDate = convertedWeatherData[0].dateString;
+
+    const weatherDataNextDays = convertedWeatherData.filter(item => item.dateString !== currentDate);
+
+    // get list of next dates
+    const dates: number[] = [];
+    weatherDataNextDays.forEach(item => {
+        if (dates.indexOf(item.date) === -1) {
+            dates.push(item.date);
+        }
+    });
+
+    // group 3hour forecasts by date
+    const groupByDate: IWeatherDataConverted[][] = [];
+    for (let i = 0; i < dates.length; i += 1) {
+        groupByDate.push(weatherDataNextDays.filter(item => item.date === dates[i]));
+    }
+
+    const forecast = groupByDate.map(items => {
+        const {tempMin, tempMax} = getMinMaxTemp(items.map(o => o.temperature));
+        const mostFrequentIcon = findMostFrequent(items.map(o => o.icon));
+
+        return  {
+            tempMin,
+            tempMax,
+            day: items[0].day,
+            date: items[0].date,
+            month: items[0].month,
+            dateString: items[0].dateString,
+            icon: mostFrequentIcon,
+        };
+    });
+    return forecast;
 }
 
 function convertWindDirection(deg: number) {
@@ -51,4 +142,56 @@ function convertWindDirection(deg: number) {
             return 'none';
         // tslint:enable:ter-indent
     }
+}
+
+function convertDate(date: number) {
+    const d = new Date(date);
+    return {
+        hour: d.getHours(),
+        day: d.getDay(),
+        date: d.getDate(),
+        month: d.getMonth(),
+        year: d.getFullYear(),
+    };
+}
+
+function findMostFrequent(items: string[]) {
+    if (items.length === 0) {
+        return null;
+    }
+
+    const modeMap: any = {};
+    let mostFreqEl = items[0];
+    let maxCount = 1;
+
+    for (let i = 0; i < items.length; i += 1) {
+        const el = items[i];
+        if (modeMap[el] == null) {
+            modeMap[el] = 1;
+        } else {
+            modeMap[el] += 1;
+        }
+
+        if (modeMap[el] > maxCount) {
+            mostFreqEl = el;
+            maxCount = modeMap[el];
+        }
+    }
+    return mostFreqEl;
+}
+
+function getMinMaxTemp(temperatures: number[]) {
+    let tempMin = temperatures[0];
+    let tempMax = temperatures[0];
+
+    temperatures.forEach(temperature => {
+        if (temperature < tempMin) {
+            tempMin = temperature;
+        }
+        if (temperature > tempMax) {
+            tempMax = temperature;
+        }
+    });
+
+    return {tempMin, tempMax};
 }
