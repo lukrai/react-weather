@@ -15,7 +15,6 @@ export default function Favorites(props: any) {
         props.onCityClick(lat, lng);
     };
 
-    console.log(favorites);
     return (
         <div className="collapsible-div">
             <button className="collapsible" onClick={toggle}>Favorites</button>

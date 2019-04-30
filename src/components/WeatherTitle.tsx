@@ -14,12 +14,9 @@ export default function WeatherTitle(props: { city: ICity, cityName: string }) {
     }, [favorites]);
 
     const onChange = (event: any) => {
-        console.log(props.cityName);
         if (favorites && favorites.length > 0) {
             const existingCity = favorites.find((o: any) => o != null && o.city === props.cityName);
             if (!existingCity) {
-                console.log(existingCity);
-                console.log(favorites);
                 const city = {city: props.city.name, lat: props.city.coord.lat, lng: props.city.coord.lon}
                 saveCityDataToLocalStorage(city);
                 setFavorites([...favorites, city]);

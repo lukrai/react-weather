@@ -12,7 +12,6 @@ export async function getWeatherData(value: {latitude: number, longitude: number
 
     try {
         const response = await axios.get(url);
-        console.log(response);
         return parseResponseWeatherData(response.data);
     } catch (error) {
         console.log(error);
