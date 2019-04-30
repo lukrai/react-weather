@@ -81,6 +81,15 @@ body {
     margin: $padding8;
     font-size: 20px;
     text-align: left;
+
+    span {
+      font-size: 24px;
+      cursor: pointer;
+    }
+
+    :after {
+      content: none;
+    }
   }
 }
 
@@ -106,7 +115,8 @@ body {
   }
 
   i {
-    margin-top: 16px;
+    paddig-top: 16px;
+    padding-bottom: 16px;
     display: inline-block;
     width: 100%;
     text-align:center;
@@ -281,4 +291,70 @@ body {
 
 .map-element {
   height: 100%;
+}
+
+.collapsible-div {
+  text-align: center;
+  padding: $padding8;
+  display: grid;
+
+
+  @include desktop {
+    width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+.collapsible {
+  position: relative;
+  text-align: center;
+  border: 1px solid transparent;
+  background-color: $orange;
+  cursor: pointer;
+  height: 40px;
+  width: 100%;
+  font-size: 20px;
+  font-family: "Roboto Medium";
+  border-radius: 16px;
+  padding: $padding8;
+
+  @include desktop {
+    width: 500px;
+  }
+}
+
+.collapsible:hover {
+  background-color: $grey;
+}
+
+.collapsible:focus {
+  outline: none;
+}
+
+.content {
+  width: 100%;
+  text-align:left;
+  padding-top: $padding8;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+
+  @include desktop {
+    width: 500px;
+  }
+
+  span {
+    border: 1px solid transparent;
+    background-color: $orange;
+    cursor: pointer;
+    font-size: 14px;
+    font-family: "Roboto Medium";
+    border-radius: 8px;
+    padding: $padding4;
+    margin: $padding4;
+
+    :hover {
+      background-color: $grey;
+    }
+  }
 }
