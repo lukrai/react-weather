@@ -1,5 +1,5 @@
 import React from 'react';
-import {ICity, ICurentWeather} from '../dto';
+import {ICity} from '../dto';
 
 export default function WeatherTitle(props: { city: ICity, cityName: string }) {
     const [favorites, setFavorites] = React.useState(
