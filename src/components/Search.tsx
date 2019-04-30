@@ -1,5 +1,4 @@
 import React from 'react';
-// import {} from '@types/googlemaps';
 declare const google: any;
 
 export default class Search extends React.Component<any, {lat: number| string, lng: number | string}> {
@@ -25,9 +24,8 @@ export default class Search extends React.Component<any, {lat: number| string, l
 
             this.setState({
                 lat,
-                lng
+                lng,
             });
-            console.log(lat, lng);
             this.props.onSubmit(lat, lng);
         });
     }

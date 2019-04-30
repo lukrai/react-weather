@@ -52,7 +52,7 @@ export function parseResponseWeatherData(weatherDataResponse: IWeatherDataRespon
         id: weatherDataResponse.list[0].weather[0].id,
         clouds: weatherDataResponse.list[0].clouds.all,
         wind: {
-            direction: convertWindDirection(weatherDataResponse.list[0].wind.speed),
+            direction: convertWindDirection(weatherDataResponse.list[0].wind.deg),
             speed: Math.round(weatherDataResponse.list[0].wind.speed),
         },
     };
@@ -122,7 +122,7 @@ function convertWindDirection(deg: number) {
     // tslint:disable:ter-indent
     switch (true) {
         case (deg >= 0 && deg <= 15):
-        case (deg <= 360 && deg > 345):
+        case (deg > 345 && deg <= 360):
             return 'down';
         case (deg > 15 && deg <= 75):
             return 'down-left';
