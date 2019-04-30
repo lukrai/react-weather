@@ -1,5 +1,18 @@
 # React Weather App
 
+This project was bootraped with Creat React App so the basic npm script are included.
+The project needs more input to be fully completed. The main features that are missing
+are in the Todo section.
+
+## Todo
+
+Make error handler to catch errors.<br>
+Write some tests.<br>
+Change the location of api keys to .env.<br>
+Split css file.<br>
+Fix the adding to favorites bug (does not reload instantly).<br>
+Deploy app on some server. 
+
 ## Available Scripts
 
 In the project directory, you can run:
